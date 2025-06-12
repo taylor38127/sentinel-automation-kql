@@ -1,0 +1,15 @@
+// Sentinel False Positive Tracker via Incident Comments
+// Customize AvgMinutesSavedPerIncident as needed
+
+let AvgMinutesSavedPerIncident = 30;
+SecurityIncident
+| mv-expand comment = Comments
+| extend commentText = tostring(comment.message)
+| where commentText has "False positive"
+| summarize 
+    IncidentCount = dcount(IncidentName) 
+    by bin(TimeGenerated, 30d)
+| extend Estimated_Minutes_Saved = IncidentCount * AvgMinutesSavedPerIncident
+| extend Estimated_Hours_Saved = round(Estimated_Minutes_Saved / 60.0, 2)
+| extend FTE_Saved = round(Estimated_Hours_Saved / 160.0, 2)
+| order by TimeGenerated asc
