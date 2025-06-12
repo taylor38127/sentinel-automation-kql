@@ -36,4 +36,4 @@ See [`sentinel_false_positive_tracker.kql`](./sentinel_false_positive_tracker.kq
 
 ## 📎 Attribution
 
-Created by [Your Name Here] | GitHub: `@yourhandle`
+Created by Terrick Taylor | GitHub: `@yTimelord901`
